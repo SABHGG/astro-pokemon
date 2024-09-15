@@ -1,0 +1,33 @@
+---
+
+const data = await fetch(`${Astro.props.url}`);
+const pokemon = await data.json();
+
+const { name, sprites } = pokemon;
+---
+
+<article>
+  <p>{name}</p>
+  <a href={`/pokemon/${name}`}>
+    <img src={sprites.other.home.front_default} alt={name} loading="lazy"  />
+  </a>
+</article>
+<style>
+  article {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  p{
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;  
+  }
+  img {
+    width: 200px;
+  }
+</style>

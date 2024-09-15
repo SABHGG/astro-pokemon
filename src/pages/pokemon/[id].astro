@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+export async function getStaticPaths() {
+  const data = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`);
+  const pokemon = await data.json();
+  return pokemon.results.map((pokemon) => ({
+    params: {
+      id: pokemon.name,
+    },
+  }));
+}
+const { id } = Astro.params;
+const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+const pokemon = await data.json();
+const { name, sprites, height, weight, types } = pokemon;
+
+
+---
+
+<Layout title="test">
+  <h1>Este es el detalle del pokemon</h1>
+  <article>
+    <p>{name}</p>
+    <img src={sprites.other.home.front_default} alt={name} />
+    <p>Altura: {height}</p>
+    <p>Peso: {weight}</p>
+    <p>Tipos:</p>
+    <ul>
+      {types.map((type) => (
+        <li>{type.type.name}</li>
+      ))}
+    </ul>
+  </article>
+</Layout>
+
