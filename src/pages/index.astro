@@ -1,31 +1,50 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Pokemons from "../components/Pokemons.astro";
-const data = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`);
+const data = await fetch(
+  `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`
+);
 const datos = await data.json();
 const pokemones = datos.results;
+
 ---
 
-<Layout title="Hola">
+<Layout title="Pokemones de de la primera generacion">
   <h1>Lista de pokemos</h1>
+  <input
+    type="text"
+    placeholder="Busca un Pokémon..."
+    oninput="filterPokemons()"
+  />
   <main>
     {
       pokemones.map((pokemon) => {
-        const url = pokemon.url
+        const url = pokemon.url;
         return <Pokemons url={url} />;
       })
     }
   </main>
-  <nav>
-    <button >next</button>
-    <button>previous</button>
-  </nav>
 </Layout>
-
 <style>
-  main{
-    display:grid;
+  main {
+    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 10px;
   }
 </style>
+
+<script is:inline>
+  function filterPokemons() {
+    const searchInput = document.querySelector("input").value.toLowerCase();
+    const pokemons = document.querySelectorAll("article");
+
+    pokemons.forEach((pokemon) => {
+      const name = pokemon.getAttribute("name").toLowerCase();
+      if (name.includes(searchInput)) {
+        pokemon.style.display = "block";
+      } else {
+        pokemon.style.display = "none"; 
+      }
+    });
+  }
+</script>

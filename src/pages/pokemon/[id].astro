@@ -17,11 +17,10 @@ const { name, sprites, height, weight, types } = pokemon;
 
 ---
 
-<Layout title="test">
-  <h1>Este es el detalle del pokemon</h1>
+<Layout title={`${name} - Primera generacion`}>
   <article>
     <p>{name}</p>
-    <img src={sprites.other.home.front_default} alt={name} />
+    <img src={sprites.front_default} alt={name} />
     <p>Altura: {height}</p>
     <p>Peso: {weight}</p>
     <p>Tipos:</p>

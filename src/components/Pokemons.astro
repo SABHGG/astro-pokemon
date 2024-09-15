@@ -6,10 +6,10 @@ const pokemon = await data.json();
 const { name, sprites } = pokemon;
 ---
 
-<article>
+<article name={name} >
   <p>{name}</p>
   <a href={`/pokemon/${name}`}>
-    <img src={sprites.other.home.front_default} alt={name} loading="lazy"  />
+    <img src={sprites.front_default} alt={name} loading="lazy"  />
   </a>
 </article>
 <style>
@@ -29,5 +29,6 @@ const { name, sprites } = pokemon;
   }
   img {
     width: 200px;
+    image-rendering: pixelated;
   }
 </style>
